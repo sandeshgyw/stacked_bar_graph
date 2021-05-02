@@ -7,5 +7,6 @@ import 'package:intl/intl.dart';
 
 part 'axis_painter.dart';
 part 'shape_painter.dart';
+part 'point.dart';
 part 'graph_data.dart';
 part 'budget_graph.dart';

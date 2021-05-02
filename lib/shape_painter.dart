@@ -4,7 +4,7 @@ class _GraphPainter extends CustomPainter {
   GraphData data;
   _GraphPainter(this.data,
       {this.barWidth = 50, this.paddedBarWidth, this.clipColor});
-
+  Point startPoint = Point();
   double section = 500; //y axis ka labels difference
   double barWidth;
   double paddedBarWidth;
@@ -19,8 +19,7 @@ class _GraphPainter extends CustomPainter {
 
   double previousStart = 0;
 
-  Offset startPoint;
-  Offset endPoint;
+  Point endPoint = Point();
 
   final textStyle = TextStyle(
     color: Color(0xff4c4c4c),
@@ -47,10 +46,6 @@ class _GraphPainter extends CustomPainter {
         2; //viewport mapping of graph to actual screen of height graphDisplayHeight
   }
 
-  // double get initialHeight {
-  //   return graphDisplayHeight / 2 - getHeightOfSection(data.initialHeight);
-  // }
-
   double get graphDisplayHeight {
     return size.height - 20;
   }
@@ -59,7 +54,7 @@ class _GraphPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     this.size = size;
-    startPoint = Offset(paddedBarWidth / 2, startPoint.dy);
+    startPoint.x = paddedBarWidth / 2;
 
     data.months.forEach((m) {
       GraphBar barData = data.bars.firstWhere(
@@ -71,13 +66,13 @@ class _GraphPainter extends CustomPainter {
 
         _clipBar(canvas, barData);
         _plotNetPoint(barData, canvas);
-        startPoint = Offset(startPoint.dx,
-            graphDisplayHeight / 2 - getHeightOfSection(barData.average));
+        startPoint.y =
+            graphDisplayHeight / 2 - getHeightOfSection(barData.average);
 
         _plotNetLine(canvas, startPoint, endPoint, barData);
       }
       if (barData == null) {
-        endPoint = Offset(endPoint.dx - paddedBarWidth, endPoint.dy);
+        endPoint.x = endPoint.x - paddedBarWidth;
       }
       _plotXAxisLabels(canvas, size, m);
       canvas.translate(paddedBarWidth, 0);
@@ -162,33 +157,30 @@ class _GraphPainter extends CustomPainter {
 
   _plotNetPoint(GraphBar graphBar, Canvas canvas) {
     canvas.drawCircle(
-        Offset(
-          startPoint.dx,
-          graphDisplayHeight / 2 - getHeightOfSection(graphBar.average),
-        ),
+        Offset(paddedBarWidth / 2 - netPointThickness,
+            graphDisplayHeight / 2 - getHeightOfSection(graphBar.average)),
         netPointRadius,
         Paint()..color = Colors.amber);
     canvas.drawCircle(
-        Offset(
-          startPoint.dx,
-          graphDisplayHeight / 2 - getHeightOfSection(graphBar.average),
-        ),
+        Offset(paddedBarWidth / 2 - netPointThickness,
+            graphDisplayHeight / 2 - getHeightOfSection(graphBar.average)),
         netPointRadius - netPointThickness,
         Paint()..color = Colors.white);
   }
 
   _plotNetLine(
-      Canvas canvas, Offset startPoint, Offset endPoint, GraphBar barData) {
+      Canvas canvas, Point startPoint, Point endPoint, GraphBar barData) {
     // if (startPoint.y != initialHeight) {
     if (barData.month != data.bars.first.month) {
       canvas.drawLine(
-          Offset(startPoint.dx - netPointRadius, startPoint.dy),
-          Offset(endPoint.dx + netPointRadius, endPoint.dy),
+          Offset(startPoint.x - netPointRadius, startPoint.y),
+          Offset(endPoint.x + netPointRadius, endPoint.y),
           Paint()
             ..color = Colors.amber
             ..strokeWidth = 2);
     }
-    endPoint = Offset(startPoint.dx - paddedBarWidth, startPoint.dy);
+    endPoint.x = startPoint.x - paddedBarWidth;
+    endPoint.y = startPoint.y;
   }
 
   _plotBarTop(Canvas canvas, GraphBar graphBar) {

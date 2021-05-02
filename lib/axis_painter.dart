@@ -8,8 +8,8 @@ class _AxisPainter extends CustomPainter {
   double barWidth;
   double paddedBarWidth;
 
-  Offset startPoint;
-  Offset endPoint;
+  Point startPoint = Point();
+  Point endPoint = Point();
 
   final textStyleY = TextStyle(
     color: Color(0xff4c4c4c),
@@ -43,13 +43,11 @@ class _AxisPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     this.size = size;
-    startPoint = Offset(paddedBarWidth / 2, startPoint.dy);
+    startPoint.x = paddedBarWidth / 2;
     _plotYAxis(size, canvas, data);
   }
 
   _plotYAxis(Size size, Canvas canvas, GraphData data) {
-    // canvas.drawLine(Offset(0, graphDisplayHeight), Offset(0, adjustedLow),
-    //     Paint()..color = Colors.black);
     _plotPositiveLabels(canvas);
     _plotNegativeLabels(canvas);
   }
@@ -83,12 +81,6 @@ class _AxisPainter extends CustomPainter {
 
   _plotNegativeLabels(Canvas canvas) {
     for (int i = 0; i < -data.cumulativeLow + section; i = i + section.ceil()) {
-      // canvas.drawLine(
-      //     Offset(0, graphDisplayHeight / 2 + getHeightOfSection(i.toDouble())),
-      //     Offset(5, graphDisplayHeight / 2 + getHeightOfSection(i.toDouble())),
-      //     Paint()
-      //       ..color = i == 0 ? Colors.blue : Colors.grey
-      //       ..strokeWidth = 2);
       final textSpan = TextSpan(
         text: "-" + "Є" + "${NumberFormat.compact().format(i)}",
         style: textStyleY,
