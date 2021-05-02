@@ -2,7 +2,15 @@ part of stacked_bar_chart;
 
 class _GraphPainter extends CustomPainter {
   GraphData data;
-  _GraphPainter(this.data, {this.barWidth = 50, this.paddedBarWidth});
+  final String Function(DateTime p1) xLabelMapper;
+  _GraphPainter(
+    this.data, {
+    this.barWidth = 50,
+    this.paddedBarWidth,
+    this.xLabelMapper,
+    this.xLabelStyle,
+  });
+  final TextStyle xLabelStyle;
   Point startPoint = Point();
   double sectionRange = 250; //y axis ka labels difference
   double barWidth;
@@ -31,11 +39,6 @@ class _GraphPainter extends CustomPainter {
   double previousStart = 0;
 
   Point endPoint = Point();
-
-  final textStyle = TextStyle(
-    color: Color(0xff4c4c4c),
-    fontSize: 14 * 0.8,
-  );
 
   double get adjustedHigh {
     return (data.cumulativeHigh / section)
@@ -92,29 +95,30 @@ class _GraphPainter extends CustomPainter {
       if (barData == null) {
         endPoint.x = endPoint.x - paddedBarWidth;
       }
-      _plotXAxisLabels(canvas, size, m);
+      _plotXAxisLabels(
+        canvas,
+        size,
+        xLabelMapper?.call(m) ?? DateFormat("MMM").format(m),
+      );
       canvas.translate(paddedBarWidth, 0);
     });
   }
 
-  _plotXAxisLabels(Canvas canvas, Size size, DateTime month) {
-    String nextMonthStr = DateFormat.MMM().format(month);
-
+  _plotXAxisLabels(Canvas canvas, Size size, String month) {
     final textSpan = TextSpan(
-      text: nextMonthStr,
-      style: textStyle,
+      text: month,
+      style: xLabelStyle,
     );
     final textPainter = TextPainter(
-      text: textSpan,
-      textDirection: ui.TextDirection.ltr,
-    );
+        text: textSpan,
+        textDirection: ui.TextDirection.ltr,
+        textAlign: TextAlign.center);
 
     textPainter.layout(
       minWidth: 0,
       maxWidth: paddedBarWidth,
     );
-    print(textPainter.width);
-    print(textPainter.width);
+
     textPainter.paint(
       canvas,
       Offset(
@@ -210,6 +214,6 @@ class _GraphPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    return true;
   }
 }

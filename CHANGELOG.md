@@ -1,4 +1,7 @@
 ## [1.0.3]- 2021/05/2
+Dynamic placement of Y Labels
+
+## [1.0.3]- 2021/05/2
 Spacing has been reduced
 
 ## [1.0.2]- 2021/05/2

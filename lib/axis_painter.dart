@@ -2,8 +2,15 @@ part of stacked_bar_chart;
 
 class _AxisPainter extends CustomPainter {
   GraphData data;
-  _AxisPainter(this.data, {this.barWidth = 50, this.paddedBarWidth});
-
+  _AxisPainter(
+    this.data, {
+    this.yLabelMapper,
+    this.yLabelStyle,
+    this.barWidth = 50,
+    this.paddedBarWidth,
+  });
+  final String Function(num) yLabelMapper;
+  final TextStyle yLabelStyle;
   double sectionRange = 250; //y axis ka labels difference
   double barWidth;
   double paddedBarWidth;
@@ -12,7 +19,8 @@ class _AxisPainter extends CustomPainter {
   Point endPoint = Point();
 
   double get fontFactor => 0.8;
-  double graphPlotOffset = 100.0;
+  double graphPlotOffset =
+      100.0; //must be above 100 this gives the space for the net point plot on top of the bar
   double get section {
     if (data.cumulativeHigh > data.cumulativeLow * -1) {
       return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
@@ -23,10 +31,6 @@ class _AxisPainter extends CustomPainter {
     }
   }
 
-  final textStyleY = TextStyle(
-    color: Color(0xff4c4c4c),
-    fontSize: 14 * 0.8,
-  );
   double get maxLableRange {
     if (data.cumulativeHigh > data.cumulativeLow * -1) {
       return adjustedHigh;
@@ -73,8 +77,8 @@ class _AxisPainter extends CustomPainter {
   _plotPositiveLabels(Canvas canvas) {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       final textSpan = TextSpan(
-        text: "Є" + "${NumberFormat.compact().format(i)}",
-        style: textStyleY,
+        text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
+        style: yLabelStyle,
       );
       final textPainter = TextPainter(
         text: textSpan,
@@ -85,7 +89,7 @@ class _AxisPainter extends CustomPainter {
         maxWidth: paddedBarWidth,
       );
       Offset offset = Offset(
-          0 - textPainter.width / 2,
+          0,
           graphDisplayHeight / 2 -
               getHeightOfSection(i.toDouble()) -
               textPainter.height / 2);
@@ -97,8 +101,8 @@ class _AxisPainter extends CustomPainter {
   _plotNegativeLabels(Canvas canvas) {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       final textSpan = TextSpan(
-        text: "-" + "Є" + "${NumberFormat.compact().format(i)}",
-        style: textStyleY,
+        text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
+        style: yLabelStyle,
       );
       final textPainter = TextPainter(
         text: textSpan,
@@ -109,17 +113,17 @@ class _AxisPainter extends CustomPainter {
         maxWidth: paddedBarWidth,
       );
       Offset offset = Offset(
-          0 - textPainter.width / 2,
-          graphDisplayHeight / 2 +
-              getHeightOfSection(i.toDouble()) -
-              textPainter.height / 2);
+        0,
+        graphDisplayHeight / 2 +
+            getHeightOfSection(i.toDouble()) -
+            textPainter.height / 2,
+      );
       if (i != 0) textPainter.paint(canvas, offset);
     }
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return false;
+    return true;
   }
 }
