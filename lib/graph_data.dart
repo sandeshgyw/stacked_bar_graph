@@ -83,12 +83,27 @@ class GraphData {
     @required this.bars,
     @required this.backgroundColor,
   });
+
+  toMap() {
+    return {
+      "name": name,
+      "backgroundColor": backgroundColor,
+      "bars": bars,
+    };
+  }
 }
 
 class GraphBar {
   DateTime month;
   List<GraphBarSection> sections;
   GraphBar({this.month, this.sections}) : assert(sections.length > 0);
+
+  toMap() {
+    return {
+      "month": month,
+      "sections": sections,
+    };
+  }
 
   double get average {
     return sections
@@ -115,18 +130,20 @@ class GraphBar {
         .where((e) => e < 0 || e == 0)
         .reduce((value, element) => value + element);
   }
-
-  GraphBar fromMap(Map data) {
-    return GraphBar()
-      ..month = data["month"]
-      ..sections = data["sections"];
-  }
 }
 
 class GraphBarSection {
   final double value;
   final String label;
   final Color color;
+
+  toMap() {
+    return {
+      "value": value,
+      "label": label,
+      "color": color,
+    };
+  }
 
   GraphBarSection({
     @required this.value,

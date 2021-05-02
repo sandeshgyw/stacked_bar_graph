@@ -10,16 +10,14 @@ class _GraphPainter extends CustomPainter {
   double tickHeight = 3;
   double netPointRadius = 6;
   double netPointThickness = 2;
+  double graphPlotOffset = 100.0;
   double get clipWidth {
     return (paddedBarWidth - barWidth) / 2;
   }
 
-  // double get section {
-  //   return (adjustedHigh / 2);
-  // }
-
   Color get clipColor => data
       .backgroundColor; //TODO:this must be exact same as the background color
+
   double get section {
     if (data.cumulativeHigh > -data.cumulativeLow) {
       return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
@@ -49,10 +47,6 @@ class _GraphPainter extends CustomPainter {
     return (data.cumulativeLow / section).floor() * section;
   }
 
-  double get adjustedRange {
-    return (adjustedHigh - adjustedLow);
-  }
-
   double get maxLableRange {
     if (data.cumulativeHigh > data.cumulativeLow * -1) {
       return adjustedHigh;
@@ -64,13 +58,13 @@ class _GraphPainter extends CustomPainter {
   }
 
   double getHeightOfSection(double value) {
-    return (value / adjustedRange) *
+    return (value / (maxLableRange + graphPlotOffset)) *
         graphDisplayHeight /
         2; //viewport mapping of graph to actual screen of height graphDisplayHeight
   }
 
   double get graphDisplayHeight {
-    return size.height - 20;
+    return size.height - graphPlotOffset / 2;
   }
 
   Size size;
@@ -103,18 +97,8 @@ class _GraphPainter extends CustomPainter {
     });
   }
 
-  _plotXAxis(Size size, Canvas canvas) {
-    canvas.drawLine(
-        Offset(5, size.height / 2 - getHeightOfSection(data.cumulativeLow)),
-        Offset(size.width,
-            size.height / 2 - getHeightOfSection(data.cumulativeLow)),
-        Paint()..color = Colors.black);
-  }
-
   _plotXAxisLabels(Canvas canvas, Size size, DateTime month) {
     String nextMonthStr = DateFormat.MMM().format(month);
-    Offset offset = Offset(
-        paddedBarWidth, size.height / 2 - getHeightOfSection(adjustedLow));
 
     final textSpan = TextSpan(
       text: nextMonthStr,
@@ -138,15 +122,6 @@ class _GraphPainter extends CustomPainter {
         size.height / 2 - getHeightOfSection(-maxLableRange),
       ),
     );
-
-    // canvas.drawLine(
-    //     Offset((((paddedBarWidth / 2))),
-    //         size.height / 2 - getHeightOfSection(data.cumulativeLow)),
-    //     Offset((paddedBarWidth / 2),
-    //         size.height / 2 - getHeightOfSection(data.cumulativeLow) - 200),
-    //     Paint()
-    //       ..color = Colors.grey
-    //       ..strokeWidth = 1);
   }
 
   _plotBar(Canvas canvas, GraphBar graphBar) {
@@ -194,7 +169,6 @@ class _GraphPainter extends CustomPainter {
 
   _plotNetLine(
       Canvas canvas, Point startPoint, Point endPoint, GraphBar barData) {
-    // if (startPoint.y != initialHeight) {
     if (barData.month != data.bars.first.month) {
       canvas.drawLine(
           Offset(startPoint.x - netPointRadius, startPoint.y),
@@ -222,8 +196,6 @@ class _GraphPainter extends CustomPainter {
   }
 
   _plotSection(Canvas canvas, GraphBarSection section) {
-    // if (section.value > 0) {
-
     canvas.drawRect(
       Rect.fromLTWH(
         (paddedBarWidth - barWidth) / 2, //mathematically solved

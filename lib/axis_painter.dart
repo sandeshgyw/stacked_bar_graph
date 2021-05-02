@@ -12,7 +12,7 @@ class _AxisPainter extends CustomPainter {
   Point endPoint = Point();
 
   double get fontFactor => 0.8;
-
+  double graphPlotOffset = 100.0;
   double get section {
     if (data.cumulativeHigh > data.cumulativeLow * -1) {
       return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
@@ -47,18 +47,14 @@ class _AxisPainter extends CustomPainter {
     return (data.cumulativeLow / section).floor() * section;
   }
 
-  double get adjustedRange {
-    return adjustedHigh - adjustedLow;
-  }
-
   double getHeightOfSection(double value) {
-    return (value / adjustedRange) *
+    return (value / (maxLableRange + graphPlotOffset)) *
         graphDisplayHeight /
         2; //viewport mapping of graph to actual screen of height graphDisplayHeight
   }
 
   double get graphDisplayHeight {
-    return size.height - 20;
+    return size.height - graphPlotOffset / 2;
   }
 
   Size size;
