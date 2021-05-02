@@ -4,16 +4,38 @@ class _AxisPainter extends CustomPainter {
   GraphData data;
   _AxisPainter(this.data, {this.barWidth = 50, this.paddedBarWidth});
 
-  double section = 500; //y axis ka labels difference
+  double sectionRange = 250; //y axis ka labels difference
   double barWidth;
   double paddedBarWidth;
 
   Point startPoint = Point();
   Point endPoint = Point();
 
+  double get fontFactor => 0.8;
+
+  double get section {
+    if (data.cumulativeHigh > data.cumulativeLow * -1) {
+      return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
+    } else if (data.cumulativeHigh < data.cumulativeLow * -1) {
+      return (-data.cumulativeLow / (2 * sectionRange)).ceil() * sectionRange;
+    } else {
+      return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
+    }
+  }
+
   final textStyleY = TextStyle(
     color: Color(0xff4c4c4c),
+    fontSize: 14 * 0.8,
   );
+  double get maxLableRange {
+    if (data.cumulativeHigh > data.cumulativeLow * -1) {
+      return adjustedHigh;
+    } else if (data.cumulativeHigh < data.cumulativeLow * -1) {
+      return -adjustedLow;
+    } else {
+      return adjustedHigh;
+    }
+  }
 
   double get adjustedHigh {
     return (data.cumulativeHigh / section)
@@ -53,13 +75,7 @@ class _AxisPainter extends CustomPainter {
   }
 
   _plotPositiveLabels(Canvas canvas) {
-    for (int i = 0; i < data.cumulativeHigh + section; i = i + section.ceil()) {
-      // canvas.drawLine(
-      //     Offset(0, graphDisplayHeight / 2 - getHeightOfSection(i.toDouble())),
-      //     Offset(5, graphDisplayHeight / 2 - getHeightOfSection(i.toDouble())),
-      //     Paint()
-      //       ..color = i == 0 ? Colors.blue : Colors.grey
-      //       ..strokeWidth = 2);for tick
+    for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       final textSpan = TextSpan(
         text: "Є" + "${NumberFormat.compact().format(i)}",
         style: textStyleY,
@@ -73,14 +89,17 @@ class _AxisPainter extends CustomPainter {
         maxWidth: paddedBarWidth,
       );
       Offset offset = Offset(
-          0, graphDisplayHeight / 2 - getHeightOfSection(i.toDouble()) - 9);
+          0 - textPainter.width / 2,
+          graphDisplayHeight / 2 -
+              getHeightOfSection(i.toDouble()) -
+              textPainter.height / 2);
 
       textPainter.paint(canvas, offset);
     }
   }
 
   _plotNegativeLabels(Canvas canvas) {
-    for (int i = 0; i < -data.cumulativeLow + section; i = i + section.ceil()) {
+    for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       final textSpan = TextSpan(
         text: "-" + "Є" + "${NumberFormat.compact().format(i)}",
         style: textStyleY,
@@ -94,7 +113,10 @@ class _AxisPainter extends CustomPainter {
         maxWidth: paddedBarWidth,
       );
       Offset offset = Offset(
-          0, graphDisplayHeight / 2 + getHeightOfSection(i.toDouble()) - 9);
+          0 - textPainter.width / 2,
+          graphDisplayHeight / 2 +
+              getHeightOfSection(i.toDouble()) -
+              textPainter.height / 2);
       if (i != 0) textPainter.paint(canvas, offset);
     }
   }

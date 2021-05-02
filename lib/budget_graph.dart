@@ -19,17 +19,11 @@ class BudgetGraph extends StatelessWidget {
   // Adding some padding on left and right of the bar
   double get paddingFactor => 1.5;
 
-  double get labelGap {
-    int len = data.cumulativeHigh.toInt().toString().length;
-    return len / (len - 1);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Theme.of(context).backgroundColor,
         padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
         child: Row(
           children: [
@@ -59,10 +53,11 @@ class BudgetGraph extends StatelessWidget {
                   },
                   child: CustomPaint(
                     size: Size((data.months.length) * paddedBarWidth, height),
-                    painter: _GraphPainter(data,
-                        barWidth: barWidth,
-                        paddedBarWidth: paddedBarWidth,
-                        clipColor: Theme.of(context).backgroundColor),
+                    painter: _GraphPainter(
+                      data,
+                      barWidth: barWidth,
+                      paddedBarWidth: paddedBarWidth,
+                    ),
                   ),
                 ),
               ),

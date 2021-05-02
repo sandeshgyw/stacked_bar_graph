@@ -1,6 +1,7 @@
 part of stacked_bar_chart;
 
 class GraphData {
+  final Color backgroundColor;
   final String name;
   final List<GraphBar> bars;
 
@@ -80,6 +81,7 @@ class GraphData {
   GraphData({
     @required this.name,
     @required this.bars,
+    @required this.backgroundColor,
   });
 }
 

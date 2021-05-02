@@ -2,10 +2,9 @@ part of stacked_bar_chart;
 
 class _GraphPainter extends CustomPainter {
   GraphData data;
-  _GraphPainter(this.data,
-      {this.barWidth = 50, this.paddedBarWidth, this.clipColor});
+  _GraphPainter(this.data, {this.barWidth = 50, this.paddedBarWidth});
   Point startPoint = Point();
-  double section = 500; //y axis ka labels difference
+  double sectionRange = 250; //y axis ka labels difference
   double barWidth;
   double paddedBarWidth;
   double tickHeight = 3;
@@ -15,7 +14,21 @@ class _GraphPainter extends CustomPainter {
     return (paddedBarWidth - barWidth) / 2;
   }
 
-  Color clipColor; //TODO:this must be exact same as the background color
+  // double get section {
+  //   return (adjustedHigh / 2);
+  // }
+
+  Color get clipColor => data
+      .backgroundColor; //TODO:this must be exact same as the background color
+  double get section {
+    if (data.cumulativeHigh > -data.cumulativeLow) {
+      return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
+    } else if (data.cumulativeHigh < -data.cumulativeLow) {
+      return (-data.cumulativeLow / (2 * sectionRange)).ceil() * sectionRange;
+    } else {
+      return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
+    }
+  }
 
   double previousStart = 0;
 
@@ -23,7 +36,7 @@ class _GraphPainter extends CustomPainter {
 
   final textStyle = TextStyle(
     color: Color(0xff4c4c4c),
-    fontSize: 20,
+    fontSize: 14 * 0.8,
   );
 
   double get adjustedHigh {
@@ -38,6 +51,16 @@ class _GraphPainter extends CustomPainter {
 
   double get adjustedRange {
     return (adjustedHigh - adjustedLow);
+  }
+
+  double get maxLableRange {
+    if (data.cumulativeHigh > data.cumulativeLow * -1) {
+      return adjustedHigh;
+    } else if (data.cumulativeHigh < data.cumulativeLow * -1) {
+      return -adjustedLow;
+    } else {
+      return adjustedHigh;
+    }
   }
 
   double getHeightOfSection(double value) {
@@ -55,6 +78,7 @@ class _GraphPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     this.size = size;
     startPoint.x = paddedBarWidth / 2;
+    canvas.drawColor(data.backgroundColor, BlendMode.srcIn);
 
     data.months.forEach((m) {
       GraphBar barData = data.bars.firstWhere(
@@ -89,8 +113,8 @@ class _GraphPainter extends CustomPainter {
 
   _plotXAxisLabels(Canvas canvas, Size size, DateTime month) {
     String nextMonthStr = DateFormat.MMM().format(month);
-    Offset offset = Offset(paddedBarWidth,
-        size.height / 2 - getHeightOfSection(data.cumulativeLow));
+    Offset offset = Offset(
+        paddedBarWidth, size.height / 2 - getHeightOfSection(adjustedLow));
 
     final textSpan = TextSpan(
       text: nextMonthStr,
@@ -111,7 +135,7 @@ class _GraphPainter extends CustomPainter {
       canvas,
       Offset(
         ((paddedBarWidth / 2) - textPainter.width / 2),
-        size.height / 2 - getHeightOfSection(data.cumulativeLow),
+        size.height / 2 - getHeightOfSection(-maxLableRange),
       ),
     );
 
@@ -157,12 +181,12 @@ class _GraphPainter extends CustomPainter {
 
   _plotNetPoint(GraphBar graphBar, Canvas canvas) {
     canvas.drawCircle(
-        Offset(paddedBarWidth / 2 - netPointThickness,
+        Offset(paddedBarWidth / 2,
             graphDisplayHeight / 2 - getHeightOfSection(graphBar.average)),
         netPointRadius,
         Paint()..color = Colors.amber);
     canvas.drawCircle(
-        Offset(paddedBarWidth / 2 - netPointThickness,
+        Offset(paddedBarWidth / 2,
             graphDisplayHeight / 2 - getHeightOfSection(graphBar.average)),
         netPointRadius - netPointThickness,
         Paint()..color = Colors.white);

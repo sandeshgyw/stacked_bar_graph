@@ -1,3 +1,7 @@
+## [1.0.2]- 2021/05/2
+Dynamic range of Y labels
+background color can be passed as parameter
+
 ## [1.0.1]- 2021/05/2
 Point class added
 
