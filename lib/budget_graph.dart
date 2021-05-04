@@ -22,17 +22,36 @@ class BudgetGraph extends StatelessWidget {
     this.barWidth = 30,
   }) : super(key: key);
 
-  /// This parameter converts the date provided as parameter to String.
+  /// This parameter maps the values provided as X-axis Labels.
   final String Function(DateTime) xLabelMapper;
+
+  ///This parameter maps the values as Y-Axis labels
   final String Function(num) yLabelMapper;
+
+  ///Provides callback whenever the bar plotted is tapped
   final Function(GraphBar) onBarTapped;
+
+  ///Provides data to be plotted
   final GraphData data;
+
+  ///Style th labels in X-axis.
   final TextStyle xLabelStyle;
+
+  ///Style th labels in Y-axis.
   final TextStyle yLabelStyle;
+
   final ScrollController scrollController;
+
+  ///To control the plotiing of NetLine
   final NetLine netLine;
+
+  ///Height of the the canvas where the graph is plotted
   final double height;
+
+  //width of the bar that has been plotted
   final double barWidth;
+
+  ///Type of Graph to be plotted.
   final GraphType graphType;
 
   double get paddedBarWidth => barWidth * paddingFactor;
