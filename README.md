@@ -40,17 +40,18 @@ import 'package:stacked_bar_chart/stacked_bar_chart.dart';
 ```
 
 ## Graph Types
-    1. Stacked Rounded Rectangle Graph
-    A simple stacked bar graph  with  rounded borders.
+
+1. Stacked Rounded Rectangle Graph
+- A simple stacked bar graph  with  rounded borders.
 
 <img src="images/SRGPL.png" width="30%">.
-To plot this graph pass the `GraphType.StackedRounded` in `graphType`. as shown below 
+- To plot this graph pass the `GraphType.StackedRounded` in `graphType`. as shown below 
 
 ```dart
 graphType: GraphType.StackedRounded
 ```
 
-    You can also change the styling of the line and point plotted.The color,width etc. can be changed using the `netLine` parameter as :
+You can also change the styling of the line and point plotted.The color,width etc. can be changed using the `netLine` parameter as :
 
 ```dart
 netLine: NetLine(
@@ -66,11 +67,11 @@ netLine: NetLine(
 <img src="images/SRG.png" width="30%">.
 
 
-    2. Stacked Rectangle Graph
+2. Stacked Rectangle Graph
 
-    A simple stacked bar graph  with no rounded borders. You can customize it in the same way as the stacked rounded rectangle graph.
+- A simple stacked bar graph  with no rounded borders. You can customize it in the same way as the stacked rounded rectangle graph.
 
-    To plot this graph pass the `GraphType.StackedRect` in `graphType`. as shown below 
+- To plot this graph pass the `GraphType.StackedRect` in `graphType`. as shown below 
 
 ```dart
 graphType: GraphType.StackedRect
@@ -80,11 +81,11 @@ graphType: GraphType.StackedRect
 <img src="images/SGP.png" width="30%">.
 <img src="images/SG.png" width="30%">.
 
-    3. Net Line Graph
+3. Net Line Graph
 
-    A simple line graph plotted with the net values of the data provided. The net values of a particular data is calculated and plotted.It can also be customized in the same way as stacked rounded rectangle graph.
+- A simple line graph plotted with the net values of the data provided. The net values of a particular data is calculated and plotted.It can also be customized in the same way as stacked rounded rectangle graph.
 
-        To plot this graph pass the `GraphType.StackedRect` in `graphType`. as shown below 
+- To plot this graph pass the `GraphType.StackedRect` in `graphType`. as shown below 
 
 ```dart
 graphType: GraphType.LineGraph
