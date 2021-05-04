@@ -62,9 +62,9 @@ netLine: NetLine(
                 coreColor: Colors.white,
               ),
 ```
-<img src="images/SRGPL2.png" width="30%">.
-<img src="images/SRGP.png" width="30%">.
-<img src="images/SRG.png" width="30%">.
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SRGPL2.png?raw=true)
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SRGP.png?raw=true)
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SRG.png?raw=true)
 
 
 2. Stacked Rectangle Graph
@@ -76,10 +76,9 @@ netLine: NetLine(
 ```dart
 graphType: GraphType.StackedRect
 ```
-
-<img src="images/SGPL.png" width="30%">.
-<img src="images/SGP.png" width="30%">.
-<img src="images/SG.png" width="30%">.
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SGPL.png?raw=true)
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SGP.png?raw=true)
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SG.png?raw=true)
 
 3. Net Line Graph
 
@@ -90,8 +89,8 @@ graphType: GraphType.StackedRect
 ```dart
 graphType: GraphType.LineGraph
 ```
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/LG.png?raw=true)
 
-<img src="images/LG.png" width="30%">.
 
     4. Net Point Graph
 
@@ -112,5 +111,5 @@ netLine: NetLine(
                 coreColor: Colors.white,
               ),
 ```
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/PG.png?raw=true)
 
-<img src="images/PG.png" width="30%">.
