@@ -2,7 +2,7 @@
 
 A Flutter package for creating different types of charts.This package gives developer the flexibility to customize their graph as well.
 
-<img src="images/SRGPL.png" width="30%">.
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SRGPL.png?raw=true)
 
 ## Features
 
@@ -44,7 +44,7 @@ import 'package:stacked_bar_chart/stacked_bar_chart.dart';
 1. Stacked Rounded Rectangle Graph
 - A simple stacked bar graph  with  rounded borders.
 
-<img src="images/SRGPL.png" width="30%">.
+![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SRGPL.png?raw=true)
 - To plot this graph pass the `GraphType.StackedRounded` in `graphType`. as shown below 
 
 ```dart
