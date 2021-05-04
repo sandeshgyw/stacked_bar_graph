@@ -39,9 +39,9 @@ Then `import` it as :
 import 'package:stacked_bar_chart/stacked_bar_chart.dart';
 ```
 
-## Graph Types
+# Graph Types
 
-1. Stacked Rounded Rectangle Graph
+## 1. Stacked Rounded Rectangle Graph
 - A simple stacked bar graph  with  rounded borders.
 
 ![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SRGPL.png?raw=true)
@@ -67,7 +67,7 @@ netLine: NetLine(
 ![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SRG.png?raw=true)
 
 
-2. Stacked Rectangle Graph
+## 2. Stacked Rectangle Graph
 
 - A simple stacked bar graph  with no rounded borders. You can customize it in the same way as the stacked rounded rectangle graph.
 
@@ -80,7 +80,7 @@ graphType: GraphType.StackedRect
 ![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SGP.png?raw=true)
 ![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/SG.png?raw=true)
 
-3. Net Line Graph
+## 3. Net Line Graph
 
 - A simple line graph plotted with the net values of the data provided. The net values of a particular data is calculated and plotted.It can also be customized in the same way as stacked rounded rectangle graph.
 
@@ -92,11 +92,11 @@ graphType: GraphType.LineGraph
 ![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/LG.png?raw=true)
 
 
-    4. Net Point Graph
+## 4. Net Point Graph
 
-    A simple plot of the net values of the data.You can customize the point core and it's outer border using the `netPoint` parameter.
+- A simple plot of the net values of the data.You can customize the point core and it's outer border using the `netPoint` parameter.
 
-           To plot this graph pass the `GraphType.StackedRect` in `graphType`.  and then pass parameters in `netLine` to remove the line as shown below
+- To plot this graph pass the `GraphType.StackedRect` in `graphType`.  and then pass parameters in `netLine` to remove the line as shown below
 
 ```dart
 graphType: GraphType.LineGraph

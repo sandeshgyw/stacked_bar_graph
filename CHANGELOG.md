@@ -1,3 +1,9 @@
+## [1.0.6+10]- 2021/05/4
+- text bolded
+
+## [1.0.6+9]- 2021/05/4
+- Readme.md updated with url images and minor updates
+
 ## [1.0.6+8]- 2021/05/4
 - Readme.md updated with url images
 
