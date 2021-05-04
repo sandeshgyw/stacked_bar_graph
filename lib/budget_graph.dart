@@ -31,7 +31,7 @@ class BudgetGraph extends StatelessWidget {
   ///Provides callback whenever the bar plotted is tapped
   final Function(GraphBar) onBarTapped;
 
-  ///Provides data to be plotted
+  ///Provides data to be plotted.
   final GraphData data;
 
   ///Style th labels in X-axis.
@@ -42,7 +42,7 @@ class BudgetGraph extends StatelessWidget {
 
   final ScrollController scrollController;
 
-  ///To control the plotiing of NetLine
+  ///To control the plotting of NetLine
   final NetLine netLine;
 
   ///Height of the the canvas where the graph is plotted
