@@ -1,8 +1,8 @@
 name: stacked_bar_chart
 description: A new Flutter package project.
-version: 1.0.6+2
-author:
-homepage:
+version: 1.0.6+3
+author: Sandesh Gyawali <sandeshgyanwali@gmail.com>
+homepage: https://github.com/sandeshgyw/stacked_bar_graph
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
