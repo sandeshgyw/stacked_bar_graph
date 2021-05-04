@@ -4,6 +4,7 @@ class BudgetGraph extends StatelessWidget {
   const BudgetGraph({
     Key key,
     @required this.data,
+    this.netLine,
     this.xLabelMapper,
     this.xLabelStyle = const TextStyle(
       color: Colors.grey,
@@ -14,27 +15,31 @@ class BudgetGraph extends StatelessWidget {
       color: Colors.grey,
       fontSize: 11,
     ),
+    this.scrollController,
+    this.graphType,
     this.height = 350,
     this.onBarTapped,
     this.barWidth = 30,
   }) : super(key: key);
 
-  /// This parameter returns String as
+  /// This parameter converts the date provided as parameter to String.
   final String Function(DateTime) xLabelMapper;
   final String Function(num) yLabelMapper;
   final Function(GraphBar) onBarTapped;
   final GraphData data;
   final TextStyle xLabelStyle;
   final TextStyle yLabelStyle;
-
+  final ScrollController scrollController;
+  final NetLine netLine;
   final double height;
   final double barWidth;
+  final GraphType graphType;
 
   double get paddedBarWidth => barWidth * paddingFactor;
   // Adding some padding on left and right of the bar
   double get paddingFactor => 1.5;
 
-  double getWidth() {
+  double get getWidth {
     double high = data.cumulativeHigh > data.cumulativeLow
         ? data.cumulativeHigh
         : data.cumulativeLow;
@@ -59,43 +64,47 @@ class BudgetGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(0.0),
       child: Row(
         children: [
           CustomPaint(
-            size: Size(getWidth(), height),
+            size: Size(getWidth, height),
             painter: _AxisPainter(
               data,
               yLabelMapper: yLabelMapper,
               yLabelStyle: yLabelStyle,
-              barWidth: barWidth,
-              paddedBarWidth: paddedBarWidth,
             ),
           ),
           Expanded(
-            child: SingleChildScrollView(
-              reverse: true, //to  make it start from end
-              scrollDirection: Axis.horizontal,
-              child: GestureDetector(
-                onTapUp: (detail) {
-                  int index =
-                      ((detail.localPosition.dx) / (paddedBarWidth)).floor();
-                  DateTime selectedMonth = data.months[index];
+            child: Container(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                reverse: true, //to  make it start from end
+                controller: scrollController,
+                scrollDirection: Axis.horizontal,
+                child: GestureDetector(
+                  onTapUp: (detail) {
+                    int index =
+                        ((detail.localPosition.dx) / (paddedBarWidth)).floor();
+                    DateTime selectedMonth = data.months[index];
 
-                  GraphBar selectedBar = data.bars.firstWhere(
-                    (b) => b.month.compareTo(selectedMonth) == 0,
-                    orElse: () => null,
-                  );
-                  if (selectedBar != null) onBarTapped?.call(selectedBar);
-                },
-                child: CustomPaint(
-                  size: Size((data.months.length) * paddedBarWidth, height),
-                  painter: _GraphPainter(
-                    data,
-                    xLabelMapper: xLabelMapper,
-                    xLabelStyle: xLabelStyle,
-                    barWidth: barWidth,
-                    paddedBarWidth: paddedBarWidth,
+                    GraphBar selectedBar = data.bars.firstWhere(
+                      (b) => b.month.compareTo(selectedMonth) == 0,
+                      orElse: () => null,
+                    );
+                    if (selectedBar != null) onBarTapped?.call(selectedBar);
+                  },
+                  child: CustomPaint(
+                    size: Size(((data.months.length) * paddedBarWidth), height),
+                    painter: _GraphPainter(
+                      data,
+                      xLabelMapper: xLabelMapper,
+                      xLabelStyle: xLabelStyle,
+                      netLine: netLine,
+                      barWidth: barWidth,
+                      paddedBarWidth: paddedBarWidth,
+                      graphType: graphType,
+                    ),
                   ),
                 ),
               ),

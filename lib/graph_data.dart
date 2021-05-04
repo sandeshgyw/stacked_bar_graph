@@ -81,15 +81,23 @@ class GraphData {
   GraphData({
     @required this.name,
     @required this.bars,
-    @required this.backgroundColor,
+    @required this.backgroundColor = Colors.white,
   });
 
   toMap() {
     return {
       "name": name,
-      "backgroundColor": backgroundColor,
-      "bars": bars,
+      "backgroundColor": backgroundColor.value,
+      "bars": bars.map((GraphBar e) => e.toMap()).toList(),
     };
+  }
+
+  static GraphData fromMap(Map<String, dynamic> data) {
+    return GraphData(
+      backgroundColor: Color(data["backgroundColor"]),
+      name: data["name"],
+      bars: data["bars"].map<GraphBar>((e) => GraphBar.fromMap(e)).toList(),
+    );
   }
 }
 
@@ -97,13 +105,6 @@ class GraphBar {
   DateTime month;
   List<GraphBarSection> sections;
   GraphBar({this.month, this.sections}) : assert(sections.length > 0);
-
-  toMap() {
-    return {
-      "month": month,
-      "sections": sections,
-    };
-  }
 
   double get average {
     return sections
@@ -130,24 +131,42 @@ class GraphBar {
         .where((e) => e < 0 || e == 0)
         .reduce((value, element) => value + element);
   }
+
+  toMap() {
+    return {
+      "month": month.toIso8601String(),
+      "sections": sections.map((e) => e.toMap()).toList(),
+    };
+  }
+
+  static GraphBar fromMap(Map<String, dynamic> data) {
+    return GraphBar(
+        month: DateTime.parse(data["month"]),
+        sections: data["sections"]
+            .map<GraphBarSection>((e) => GraphBarSection.fromMap(e))
+            .toList());
+  }
 }
 
 class GraphBarSection {
   final double value;
-  final String label;
   final Color color;
-
-  toMap() {
-    return {
-      "value": value,
-      "label": label,
-      "color": color,
-    };
-  }
 
   GraphBarSection({
     @required this.value,
-    this.label = "",
     this.color = Colors.red,
   });
+  toMap() {
+    return {
+      "value": value.toDouble(),
+      "color": color.value,
+    };
+  }
+
+  static GraphBarSection fromMap(Map<String, dynamic> data) {
+    return GraphBarSection(
+      value: data["value"].toDouble(),
+      color: Color(data["color"]),
+    );
+  }
 }

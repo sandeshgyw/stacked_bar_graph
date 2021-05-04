@@ -3,12 +3,16 @@ part of stacked_bar_chart;
 class _GraphPainter extends CustomPainter {
   GraphData data;
   final String Function(DateTime p1) xLabelMapper;
+  NetLine netLine;
+  GraphType graphType;
   _GraphPainter(
     this.data, {
     this.barWidth = 50,
     this.paddedBarWidth,
     this.xLabelMapper,
     this.xLabelStyle,
+    this.netLine,
+    this.graphType = GraphType.StackedRect,
   });
   final TextStyle xLabelStyle;
   Point startPoint = Point();
@@ -75,7 +79,11 @@ class _GraphPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     this.size = size;
     startPoint.x = paddedBarWidth / 2;
-    canvas.drawColor(data.backgroundColor, BlendMode.srcIn);
+    // canvas.drawColor(data.backgroundColor, BlendMode.srcIn);
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      Paint()..color = data.backgroundColor,
+    );
 
     data.months.forEach((m) {
       GraphBar barData = data.bars.firstWhere(
@@ -83,14 +91,18 @@ class _GraphPainter extends CustomPainter {
         orElse: () => null,
       );
       if (barData != null) {
-        _plotBar(canvas, barData);
-
-        _clipBar(canvas, barData);
-        _plotNetPoint(barData, canvas);
+        if (graphType != GraphType.LineGraph) _plotBar(canvas, barData);
+        if (graphType == GraphType.StackedRounded) _clipBar(canvas, barData);
+        if ((netLine?.showPointOnly ?? false) == true ||
+            (netLine?.showLine ?? false) == true) {
+          _plotNetPoint(barData, canvas);
+        }
         startPoint.y =
             graphDisplayHeight / 2 - getHeightOfSection(barData.average);
-
-        _plotNetLine(canvas, startPoint, endPoint, barData);
+        if ((netLine?.showLine ?? false) == true &&
+            (netLine?.showPointOnly ?? false) != true) {
+          _plotNetLine(canvas, startPoint, endPoint, barData);
+        }
       }
       if (barData == null) {
         endPoint.x = endPoint.x - paddedBarWidth;
@@ -163,23 +175,24 @@ class _GraphPainter extends CustomPainter {
         Offset(paddedBarWidth / 2,
             graphDisplayHeight / 2 - getHeightOfSection(graphBar.average)),
         netPointRadius,
-        Paint()..color = Colors.amber);
+        Paint()..color = (netLine?.pointBorderColor ?? Colors.yellow));
     canvas.drawCircle(
         Offset(paddedBarWidth / 2,
             graphDisplayHeight / 2 - getHeightOfSection(graphBar.average)),
         netPointRadius - netPointThickness,
-        Paint()..color = Colors.white);
+        Paint()..color = (netLine?.coreColor ?? Colors.white));
   }
 
   _plotNetLine(
       Canvas canvas, Point startPoint, Point endPoint, GraphBar barData) {
     if (barData.month != data.bars.first.month) {
       canvas.drawLine(
-          Offset(startPoint.x - netPointRadius, startPoint.y),
-          Offset(endPoint.x + netPointRadius, endPoint.y),
-          Paint()
-            ..color = Colors.amber
-            ..strokeWidth = 2);
+        Offset(startPoint.x - netPointRadius, startPoint.y),
+        Offset(endPoint.x + netPointRadius, endPoint.y),
+        Paint()
+          ..color = (netLine?.lineColor ?? Colors.yellow)
+          ..strokeWidth = (netLine?.strokeWidth ?? 2),
+      );
     }
     endPoint.x = startPoint.x - paddedBarWidth;
     endPoint.y = startPoint.y;

@@ -10,3 +10,5 @@ part 'shape_painter.dart';
 part 'point.dart';
 part 'graph_data.dart';
 part 'budget_graph.dart';
+part 'net_line.dart';
+part 'graph_type.dart';

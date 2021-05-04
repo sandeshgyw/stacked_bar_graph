@@ -1,18 +1,32 @@
-## [1.0.3]- 2021/05/2
-Dynamic placement of Y Labels
+
+## [1.0.6]- 2021/05/3
+- optional display of netLine
+- control over styling of the net line
+- stacked rectangle graph added
+- rounded stacked rectangle graph added
+- net line graph added
+- dynamic styling of graphs
+- netPoint parameter made optional
+- non scrollable graph plot added
+
+## [1.0.5]- 2021/05/2
+- minor updates
+
+## [1.0.4]- 2021/05/2
+- toMap added
 
 ## [1.0.3]- 2021/05/2
-Spacing has been reduced
+- Spacing has been reduced
 
 ## [1.0.2]- 2021/05/2
-Dynamic range of Y labels
-background color can be passed as parameter
+- Dynamic range of Y labels
+- background color can be passed as parameter
 
 ## [1.0.1]- 2021/05/2
-Point class added
+-Point class added
 
 ## [1.0.0] -  2021/05/2
 
-Initial version release of this package
+-Initial version release of this package
 
 

@@ -6,14 +6,10 @@ class _AxisPainter extends CustomPainter {
     this.data, {
     this.yLabelMapper,
     this.yLabelStyle,
-    this.barWidth = 50,
-    this.paddedBarWidth,
   });
   final String Function(num) yLabelMapper;
   final TextStyle yLabelStyle;
   double sectionRange = 250; //y axis ka labels difference
-  double barWidth;
-  double paddedBarWidth;
 
   Point startPoint = Point();
   Point endPoint = Point();
@@ -65,7 +61,6 @@ class _AxisPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     this.size = size;
-    startPoint.x = paddedBarWidth / 2;
     _plotYAxis(size, canvas, data);
   }
 
@@ -76,17 +71,17 @@ class _AxisPainter extends CustomPainter {
 
   _plotPositiveLabels(Canvas canvas) {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
-      final textSpan = TextSpan(
+      TextSpan textSpan = TextSpan(
         text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
         style: yLabelStyle,
       );
-      final textPainter = TextPainter(
+      TextPainter textPainter = TextPainter(
         text: textSpan,
         textDirection: ui.TextDirection.ltr,
       );
       textPainter.layout(
         minWidth: 0,
-        maxWidth: paddedBarWidth,
+        maxWidth: size.width,
       );
       Offset offset = Offset(
           0,
@@ -110,7 +105,6 @@ class _AxisPainter extends CustomPainter {
       );
       textPainter.layout(
         minWidth: 0,
-        maxWidth: paddedBarWidth,
       );
       Offset offset = Offset(
         0,
