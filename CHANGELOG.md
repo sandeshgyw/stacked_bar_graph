@@ -1,3 +1,6 @@
+## [1.0.6+11]- 2021/05/4
+- dynamic ylable count and interval
+
 ## [1.0.6+10]- 2021/05/4
 - text bolded
 

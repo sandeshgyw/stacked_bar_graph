@@ -79,7 +79,6 @@ class _GraphPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     this.size = size;
     startPoint.x = paddedBarWidth / 2;
-    // canvas.drawColor(data.backgroundColor, BlendMode.srcIn);
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.width, size.height),
       Paint()..color = data.backgroundColor,

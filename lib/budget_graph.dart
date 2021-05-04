@@ -15,11 +15,13 @@ class BudgetGraph extends StatelessWidget {
       color: Colors.grey,
       fontSize: 11,
     ),
+    this.labelCount = 5,
     this.scrollController,
     this.graphType,
     this.height = 350,
     this.onBarTapped,
     this.barWidth = 30,
+    this.yLabelInterval = 500,
   }) : super(key: key);
 
   /// This parameter maps the values provided as X-axis Labels.
@@ -54,14 +56,20 @@ class BudgetGraph extends StatelessWidget {
   ///Type of Graph to be plotted.
   final GraphType graphType;
 
+  ///Number of labels in the Y axis
+  final int labelCount;
+
+  ///Interval of the Ylabels
+  final double yLabelInterval;
+
   double get paddedBarWidth => barWidth * paddingFactor;
   // Adding some padding on left and right of the bar
   double get paddingFactor => 1.5;
 
   double get getWidth {
-    double high = data.cumulativeHigh > data.cumulativeLow
+    double high = data.cumulativeHigh > -data.cumulativeLow
         ? data.cumulativeHigh
-        : data.cumulativeLow;
+        : -data.cumulativeLow;
     String label = yLabelMapper?.call(high) ?? high.toStringAsFixed(2);
 
     final textSpan = TextSpan(
@@ -92,6 +100,8 @@ class BudgetGraph extends StatelessWidget {
               data,
               yLabelMapper: yLabelMapper,
               yLabelStyle: yLabelStyle,
+              labelCount: labelCount,
+              interval: yLabelInterval,
             ),
           ),
           Expanded(

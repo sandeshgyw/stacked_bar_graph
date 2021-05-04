@@ -6,10 +6,13 @@ class _AxisPainter extends CustomPainter {
     this.data, {
     this.yLabelMapper,
     this.yLabelStyle,
+    this.labelCount,
+    this.interval,
   });
   final String Function(num) yLabelMapper;
   final TextStyle yLabelStyle;
-  double sectionRange = 250; //y axis ka labels difference
+  final int labelCount;
+  final double interval; //y axis ka labels difference
 
   Point startPoint = Point();
   Point endPoint = Point();
@@ -19,11 +22,20 @@ class _AxisPainter extends CustomPainter {
       100.0; //must be above 100 this gives the space for the net point plot on top of the bar
   double get section {
     if (data.cumulativeHigh > data.cumulativeLow * -1) {
-      return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
+      return (data.cumulativeHigh / (((labelCount - 1) * 0.5) * interval / 2))
+              .ceil() *
+          interval /
+          2;
     } else if (data.cumulativeHigh < data.cumulativeLow * -1) {
-      return (-data.cumulativeLow / (2 * sectionRange)).ceil() * sectionRange;
+      return (-data.cumulativeLow / (((labelCount - 1) * 0.5) * interval / 2))
+              .ceil() *
+          interval /
+          2;
     } else {
-      return (data.cumulativeHigh / (2 * sectionRange)).ceil() * sectionRange;
+      return (data.cumulativeHigh / (((labelCount - 1) * 0.5) * interval / 2))
+              .ceil() *
+          interval /
+          2;
     }
   }
 
@@ -73,7 +85,8 @@ class _AxisPainter extends CustomPainter {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       TextSpan textSpan = TextSpan(
         text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
-        style: yLabelStyle.color ?? TextStyle(color: Colors.grey),
+        style:
+            yLabelStyle == null ? TextStyle(color: Colors.grey) : yLabelStyle,
       );
       TextPainter textPainter = TextPainter(
         text: textSpan,
@@ -97,7 +110,8 @@ class _AxisPainter extends CustomPainter {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       final textSpan = TextSpan(
         text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
-        style: yLabelStyle.color ?? TextStyle(color: Colors.grey),
+        style:
+            yLabelStyle == null ? TextStyle(color: Colors.grey) : yLabelStyle,
       );
       final textPainter = TextPainter(
         text: textSpan,
