@@ -73,7 +73,7 @@ class _AxisPainter extends CustomPainter {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       TextSpan textSpan = TextSpan(
         text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
-        style: yLabelStyle,
+        style: yLabelStyle.color ?? TextStyle(color: Colors.grey),
       );
       TextPainter textPainter = TextPainter(
         text: textSpan,
@@ -97,7 +97,7 @@ class _AxisPainter extends CustomPainter {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       final textSpan = TextSpan(
         text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
-        style: yLabelStyle,
+        style: yLabelStyle.color ?? TextStyle(color: Colors.grey),
       );
       final textPainter = TextPainter(
         text: textSpan,

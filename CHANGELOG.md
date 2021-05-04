@@ -1,3 +1,8 @@
+## [1.0.6+2]- 2021/05/4
+- Readme.md updated
+
+## [1.0.6+1]- 2021/05/4
+- added description for parameters
 
 ## [1.0.6]- 2021/05/3
 - optional display of netLine
@@ -14,6 +19,8 @@
 
 ## [1.0.4]- 2021/05/2
 - toMap added
+
+
 
 ## [1.0.3]- 2021/05/2
 - Spacing has been reduced
