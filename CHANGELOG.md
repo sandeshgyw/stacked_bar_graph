@@ -1,3 +1,6 @@
+## [1.0.6+4]- 2021/05/4
+- Readme.md updated
+
 ## [1.0.6+3]- 2021/05/4
 - homepage added
 

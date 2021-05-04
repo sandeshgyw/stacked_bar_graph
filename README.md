@@ -36,7 +36,7 @@ stacked_bar_chart:
 Then `import` it as :
 
 ```yaml
-"import 'package:stacked_bar_chart/stacked_bar_chart.dart';"
+import 'package:stacked_bar_chart/stacked_bar_chart.dart';
 ```
 
 ## Graph Types
