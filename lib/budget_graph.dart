@@ -1,7 +1,7 @@
 part of stacked_bar_chart;
 
-class BudgetGraph extends StatelessWidget {
-  const BudgetGraph({
+class Graph extends StatelessWidget {
+  const Graph({
     Key key,
     @required this.data,
     this.xLabelConfiguration,
@@ -70,9 +70,7 @@ class BudgetGraph extends StatelessWidget {
       maxWidth: paddedBarWidth,
     );
 
-    return (label.length == 7 || label.length == 5)
-        ? textPainter.width + 10
-        : textPainter.width;
+    return (label.length < 8) ? textPainter.width + 10 : textPainter.width;
   }
 
   @override

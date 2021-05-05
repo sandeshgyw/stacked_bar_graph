@@ -1,3 +1,11 @@
+## [1.0.7+4]- 2021/05/5
+- minor bug fixes
+
+## [1.0.7+3]- 2021/05/5
+- BudgetGraph changed to Graph
+
+## [1.0.7+2]- 2021/05/5
+- minor changes
 ## [1.0.7+1]- 2021/05/5
 - readme added
 

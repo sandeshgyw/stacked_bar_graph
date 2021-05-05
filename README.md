@@ -23,7 +23,7 @@ A Flutter package for creating different types of charts.This package gives deve
     - You can use the toMap() and forMap() methods to provide your data in json format
 
 5. Style your Labels
-    -You can style both you X-axis and Y-axis Labels.
+    - You can style both you X-axis and Y-axis Labels.
 
 6. Callback on bar tap
     - A callback is provided on tap of each bar. Developer can use this feature as per their need.
@@ -138,7 +138,7 @@ class _StackedBarGraphState extends State<StackedBarGraph> {
           SizedBox(
             height: 50,
           ),
-          BudgetGraph(
+          Graph(
             yLabelConfiguration: YLabelConfiguration(
               yLabelStyle: TextStyle(
                 color: Colors.grey,

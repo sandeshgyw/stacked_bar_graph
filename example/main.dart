@@ -58,7 +58,7 @@ class _StackedBarGraphState extends State<StackedBarGraph> {
           SizedBox(
             height: 50,
           ),
-          BudgetGraph(
+          Graph(
             yLabelConfiguration: YLabelConfiguration(
               yLabelStyle: TextStyle(
                 color: Colors.grey,
