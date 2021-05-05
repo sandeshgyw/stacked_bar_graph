@@ -1,3 +1,6 @@
+## [1.0.7]- 2021/05/5
+- usage added
+
 ## [1.0.6+13]- 2021/05/5
 - example file updated
 
