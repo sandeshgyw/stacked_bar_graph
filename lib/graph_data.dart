@@ -52,8 +52,7 @@ class GraphData {
   DateTime get maxMonth {
     List<DateTime> allMonths = bars.map((e) => e.month).toList();
 
-    allMonths.sort((m1, m2) =>
-        m1.compareTo(m2)); //TODO:WHY THIS INSTEAD OF JUST ALLMONTHS.SORT()?
+    allMonths.sort((m1, m2) => m1.compareTo(m2));
     return allMonths.last;
   }
 
@@ -81,7 +80,7 @@ class GraphData {
   GraphData({
     @required this.name,
     @required this.bars,
-    @required this.backgroundColor = Colors.white,
+    @required this.backgroundColor,
   });
 
   toMap() {

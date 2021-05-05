@@ -4,15 +4,10 @@ class _AxisPainter extends CustomPainter {
   GraphData data;
   _AxisPainter(
     this.data, {
-    this.yLabelMapper,
-    this.yLabelStyle,
-    this.labelCount = 2,
-    this.interval = 500,
+    this.yLabelConfiguration,
   });
-  final String Function(num) yLabelMapper;
-  final TextStyle yLabelStyle;
-  final int labelCount;
-  final double interval;
+
+  final YLabelConfiguration yLabelConfiguration;
 
   Point startPoint = Point();
   Point endPoint = Point();
@@ -20,7 +15,18 @@ class _AxisPainter extends CustomPainter {
   double get fontFactor => 0.8;
   double graphPlotOffset =
       100.0; //must be above 100 this gives the space for the net point plot on top of the bar
+
+  int get labelCount {
+    if (yLabelConfiguration.labelCount == 2) return 3;
+    return yLabelConfiguration?.labelCount ?? 3;
+  }
+
+  double get interval {
+    return yLabelConfiguration?.interval ?? 500;
+  }
+
   double get section {
+    if (labelCount == 1) return 1;
     if (data.cumulativeHigh > data.cumulativeLow * -1) {
       return (data.cumulativeHigh / (((labelCount - 1) * 0.5) * interval / 2))
               .ceil() *
@@ -29,15 +35,18 @@ class _AxisPainter extends CustomPainter {
     } else if (data.cumulativeHigh < data.cumulativeLow * -1) {
       return (-data.cumulativeLow / (((labelCount - 1) * 0.5) * interval / 2))
               .ceil() *
-          interval;
+          interval /
+          2;
     } else {
       return (data.cumulativeHigh / (((labelCount - 1) * 0.5) * interval / 2))
               .ceil() *
-          interval;
+          interval /
+          2;
     }
   }
 
   double get maxLableRange {
+    if (labelCount == 1) return 0;
     if (data.cumulativeHigh > data.cumulativeLow * -1) {
       return adjustedHigh;
     } else if (data.cumulativeHigh < data.cumulativeLow * -1) {
@@ -82,9 +91,14 @@ class _AxisPainter extends CustomPainter {
   _plotPositiveLabels(Canvas canvas) {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       TextSpan textSpan = TextSpan(
-        text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
-        style:
-            yLabelStyle == null ? TextStyle(color: Colors.grey) : yLabelStyle,
+        text:
+            yLabelConfiguration?.yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
+        style: yLabelConfiguration?.yLabelStyle?.color == null
+            ? TextStyle(
+                color: Colors.grey,
+                fontSize: 11,
+              )
+            : yLabelConfiguration.yLabelStyle,
       );
       TextPainter textPainter = TextPainter(
         text: textSpan,
@@ -107,9 +121,14 @@ class _AxisPainter extends CustomPainter {
   _plotNegativeLabels(Canvas canvas) {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       final textSpan = TextSpan(
-        text: yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
-        style:
-            yLabelStyle == null ? TextStyle(color: Colors.grey) : yLabelStyle,
+        text:
+            yLabelConfiguration?.yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
+        style: yLabelConfiguration?.yLabelStyle?.color == null
+            ? TextStyle(
+                color: Colors.grey,
+                fontSize: 11,
+              )
+            : yLabelConfiguration.yLabelStyle,
       );
       final textPainter = TextPainter(
         text: textSpan,

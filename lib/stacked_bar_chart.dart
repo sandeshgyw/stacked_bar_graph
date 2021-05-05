@@ -13,3 +13,4 @@ part 'budget_graph.dart';
 part 'net_line.dart';
 part 'graph_type.dart';
 part 'y_label_config.dart';
+part 'x_label_config.dart';

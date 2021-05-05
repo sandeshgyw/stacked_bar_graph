@@ -2,19 +2,17 @@ part of stacked_bar_chart;
 
 class _GraphPainter extends CustomPainter {
   GraphData data;
-  final String Function(DateTime p1) xLabelMapper;
+  final XLabelConfiguration xLabelConfiguration;
   NetLine netLine;
   GraphType graphType;
   _GraphPainter(
     this.data, {
     this.barWidth = 50,
     this.paddedBarWidth,
-    this.xLabelMapper,
-    this.xLabelStyle,
+    this.xLabelConfiguration,
     this.netLine,
     this.graphType = GraphType.StackedRect,
   });
-  final TextStyle xLabelStyle;
   Point startPoint = Point();
   double sectionRange = 250; //y axis ka labels difference
   double barWidth;
@@ -27,8 +25,7 @@ class _GraphPainter extends CustomPainter {
     return (paddedBarWidth - barWidth) / 2;
   }
 
-  Color get clipColor => data
-      .backgroundColor; //TODO:this must be exact same as the background color
+  Color get clipColor => data.backgroundColor;
 
   double get section {
     if (data.cumulativeHigh > -data.cumulativeLow) {
@@ -109,7 +106,8 @@ class _GraphPainter extends CustomPainter {
       _plotXAxisLabels(
         canvas,
         size,
-        xLabelMapper?.call(m) ?? DateFormat("MMM").format(m),
+        xLabelConfiguration?.xLabelMapper?.call(m) ??
+            DateFormat("MMM").format(m),
       );
       canvas.translate(paddedBarWidth, 0);
     });
@@ -118,7 +116,12 @@ class _GraphPainter extends CustomPainter {
   _plotXAxisLabels(Canvas canvas, Size size, String month) {
     final textSpan = TextSpan(
       text: month,
-      style: xLabelStyle,
+      style: xLabelConfiguration?.xLabelStyle?.color == null
+          ? TextStyle(
+              color: Colors.grey,
+              fontSize: 11,
+            )
+          : xLabelConfiguration?.xLabelStyle,
     );
     final textPainter = TextPainter(
         text: textSpan,

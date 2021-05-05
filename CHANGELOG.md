@@ -1,3 +1,6 @@
+## [1.0.6+12]- 2021/05/4
+- example file added
+
 ## [1.0.6+11]- 2021/05/4
 - dynamic ylable count and interval
 

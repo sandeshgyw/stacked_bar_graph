@@ -4,31 +4,18 @@ class BudgetGraph extends StatelessWidget {
   const BudgetGraph({
     Key key,
     @required this.data,
-    this.netLine,
-    this.xLabelMapper,
-    this.xLabelStyle = const TextStyle(
-      color: Colors.grey,
-      fontSize: 11,
-    ),
-    this.yLabelMapper,
-    this.yLabelStyle = const TextStyle(
-      color: Colors.grey,
-      fontSize: 11,
-    ),
-    this.labelCount = 5,
-    this.scrollController,
+    this.xLabelConfiguration,
+    this.yLabelConfiguration,
     this.graphType,
+    this.netLine,
+    this.scrollController,
     this.height = 350,
     this.onBarTapped,
     this.barWidth = 30,
-    this.yLabelInterval = 500,
   }) : super(key: key);
 
-  /// This parameter maps the values provided as X-axis Labels.
-  final String Function(DateTime) xLabelMapper;
-
-  ///This parameter maps the values as Y-Axis labels
-  final String Function(num) yLabelMapper;
+  ///To configure the values in X-axis(labels).
+  final XLabelConfiguration xLabelConfiguration;
 
   ///Provides callback whenever the bar plotted is tapped
   final Function(GraphBar) onBarTapped;
@@ -37,10 +24,7 @@ class BudgetGraph extends StatelessWidget {
   final GraphData data;
 
   ///Style th labels in X-axis.
-  final TextStyle xLabelStyle;
-
-  ///Style th labels in Y-axis.
-  final TextStyle yLabelStyle;
+  // final TextStyle xLabelStyle;
 
   final ScrollController scrollController;
 
@@ -56,11 +40,8 @@ class BudgetGraph extends StatelessWidget {
   ///Type of Graph to be plotted.
   final GraphType graphType;
 
-  ///Number of labels in the Y axis
-  final int labelCount;
-
-  ///Interval of the Ylabels
-  final double yLabelInterval;
+  ///To configure the values in Y-axis(labels).
+  final YLabelConfiguration yLabelConfiguration;
 
   double get paddedBarWidth => barWidth * paddingFactor;
   // Adding some padding on left and right of the bar
@@ -70,13 +51,15 @@ class BudgetGraph extends StatelessWidget {
     double high = data.cumulativeHigh > -data.cumulativeLow
         ? data.cumulativeHigh
         : -data.cumulativeLow;
-    List<String> adjustedLabel = high.toString().split(".");
 
-    String label = yLabelMapper?.call(high) ?? high.toStringAsFixed(2);
+    String label = yLabelConfiguration?.yLabelMapper?.call(high) ??
+        high.toStringAsFixed(2);
 
     final textSpan = TextSpan(
       text: label,
-      style: yLabelStyle,
+      style: yLabelConfiguration?.yLabelStyle?.color == null
+          ? TextStyle(color: Colors.grey)
+          : yLabelConfiguration.yLabelStyle,
     );
     final textPainter = TextPainter(
       text: textSpan,
@@ -100,10 +83,7 @@ class BudgetGraph extends StatelessWidget {
             size: Size(getWidth, height),
             painter: _AxisPainter(
               data,
-              yLabelMapper: yLabelMapper,
-              yLabelStyle: yLabelStyle,
-              labelCount: labelCount,
-              interval: yLabelInterval,
+              yLabelConfiguration: yLabelConfiguration,
             ),
           ),
           Expanded(
@@ -129,8 +109,7 @@ class BudgetGraph extends StatelessWidget {
                     size: Size(((data.months.length) * paddedBarWidth), height),
                     painter: _GraphPainter(
                       data,
-                      xLabelMapper: xLabelMapper,
-                      xLabelStyle: xLabelStyle,
+                      xLabelConfiguration: xLabelConfiguration,
                       netLine: netLine,
                       barWidth: barWidth,
                       paddedBarWidth: paddedBarWidth,
