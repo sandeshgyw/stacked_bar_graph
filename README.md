@@ -25,6 +25,9 @@ A Flutter package for creating different types of charts.This package gives deve
 5. Style your Labels
     -You can style both you X-axis and Y-axis Labels.
 
+6. Callback on bar tap
+    - A callback is provided on tap of each bar. Developer can use this feature as per their need.
+
 ## Installation
 
 In the `dependencies:` section of your `pubspec.yaml`, add the following line:
