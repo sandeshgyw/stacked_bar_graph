@@ -6,13 +6,13 @@ class _AxisPainter extends CustomPainter {
     this.data, {
     this.yLabelMapper,
     this.yLabelStyle,
-    this.labelCount,
-    this.interval,
+    this.labelCount = 2,
+    this.interval = 500,
   });
   final String Function(num) yLabelMapper;
   final TextStyle yLabelStyle;
   final int labelCount;
-  final double interval; //y axis ka labels difference
+  final double interval;
 
   Point startPoint = Point();
   Point endPoint = Point();
@@ -29,13 +29,11 @@ class _AxisPainter extends CustomPainter {
     } else if (data.cumulativeHigh < data.cumulativeLow * -1) {
       return (-data.cumulativeLow / (((labelCount - 1) * 0.5) * interval / 2))
               .ceil() *
-          interval /
-          2;
+          interval;
     } else {
       return (data.cumulativeHigh / (((labelCount - 1) * 0.5) * interval / 2))
               .ceil() *
-          interval /
-          2;
+          interval;
     }
   }
 

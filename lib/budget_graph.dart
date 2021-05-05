@@ -70,6 +70,8 @@ class BudgetGraph extends StatelessWidget {
     double high = data.cumulativeHigh > -data.cumulativeLow
         ? data.cumulativeHigh
         : -data.cumulativeLow;
+    List<String> adjustedLabel = high.toString().split(".");
+
     String label = yLabelMapper?.call(high) ?? high.toStringAsFixed(2);
 
     final textSpan = TextSpan(
@@ -85,7 +87,7 @@ class BudgetGraph extends StatelessWidget {
       maxWidth: paddedBarWidth,
     );
 
-    return textPainter.width;
+    return label.length == 7 ? textPainter.width + 5 : textPainter.width;
   }
 
   @override

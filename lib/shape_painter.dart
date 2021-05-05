@@ -155,10 +155,10 @@ class _GraphPainter extends CustomPainter {
     );
     RRect rRect2 = RRect.fromRectAndRadius(
       Rect.fromLTWH(
-          ((paddedBarWidth - barWidth) / 2),
-          graphDisplayHeight / 2 - getHeightOfSection(barData.high),
-          barWidth,
-          getHeightOfSection(barData.range)),
+          ((paddedBarWidth - barWidth) / 2) - 1,
+          graphDisplayHeight / 2 - getHeightOfSection(barData.high) - 1,
+          barWidth + 2,
+          getHeightOfSection(barData.range) + 2),
       Radius.circular(0),
     );
     canvas.drawDRRect(
@@ -193,6 +193,7 @@ class _GraphPainter extends CustomPainter {
           ..strokeWidth = (netLine?.strokeWidth ?? 2),
       );
     }
+
     endPoint.x = startPoint.x - paddedBarWidth;
     endPoint.y = startPoint.y;
   }
