@@ -113,3 +113,162 @@ netLine: NetLine(
 ```
 ![img](https://github.com/sandeshgyw/stacked_bar_graph/blob/main/images/PG.png?raw=true)
 
+## USAGE
+
+```dart
+class StackedBarGraph extends StatefulWidget {
+  StackedBarGraph({Key key}) : super(key: key);
+
+  @override
+  _StackedBarGraphState createState() => _StackedBarGraphState();
+}
+
+class _StackedBarGraphState extends State<StackedBarGraph> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Stacked Rounded Rectangle Graph"),
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+          BudgetGraph(
+            yLabelConfiguration: YLabelConfiguration(
+              yLabelStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: 11,
+              ),
+              interval: 500,
+              labelCount: 5,
+              yLabelMapper: (num value) {
+                return NumberFormat.compactCurrency(
+                        locale: "en", decimalDigits: 0, symbol: "\$")
+                    .format(value);
+              },
+            ),
+            xLabelConfiguration: XLabelConfiguration(
+              xLabelStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: 11,
+              ),
+              xLabelMapper: (DateTime date) {
+                return DateFormat("MMM yyyy").format(date);
+              },
+            ),
+            netLine: NetLine(
+              showLine: true,
+              lineColor: Colors.black,
+              pointBorderColor: Colors.black,
+              coreColor: Colors.yellow,
+            ),
+            graphType: GraphType.StackedRounded,
+            data: GraphData(
+              backgroundColor: Colors.white,
+              name: "ThePension",
+              bars: [
+                GraphBar(
+                  month: DateTime(2020, 01),
+                  sections: [
+                    GraphBarSection(value: 200, color: Colors.pink),
+                    GraphBarSection(value: 900, color: Colors.blue),
+                    GraphBarSection(value: -200, color: Colors.amber),
+                    GraphBarSection(value: -700, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 2),
+                  sections: [
+                    GraphBarSection(value: 300, color: Colors.pink),
+                    GraphBarSection(value: 700, color: Colors.blue),
+                    GraphBarSection(value: -400, color: Colors.amber),
+                    GraphBarSection(value: -600, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 3),
+                  sections: [
+                    GraphBarSection(value: 400, color: Colors.pink),
+                    GraphBarSection(value: 700, color: Colors.blue),
+                    GraphBarSection(value: -100, color: Colors.amber),
+                    GraphBarSection(value: -900, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 4),
+                  sections: [
+                    GraphBarSection(value: 400, color: Colors.pink),
+                    GraphBarSection(value: 0, color: Colors.blue),
+                    GraphBarSection(value: -800, color: Colors.amber),
+                    GraphBarSection(value: -400, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 5),
+                  sections: [
+                    GraphBarSection(value: 700, color: Colors.pink),
+                    GraphBarSection(value: 900, color: Colors.blue),
+                    GraphBarSection(value: -200, color: Colors.amber),
+                    GraphBarSection(value: -100, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 6),
+                  sections: [
+                    GraphBarSection(value: 900, color: Colors.pink),
+                    GraphBarSection(value: 900, color: Colors.blue),
+                    GraphBarSection(value: -200, color: Colors.amber),
+                    GraphBarSection(value: -100, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 7),
+                  sections: [
+                    GraphBarSection(value: 300, color: Colors.pink),
+                    GraphBarSection(value: 800, color: Colors.blue),
+                    GraphBarSection(value: -200, color: Colors.amber),
+                    GraphBarSection(value: -1100, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 8),
+                  sections: [
+                    GraphBarSection(value: 250, color: Colors.pink),
+                    GraphBarSection(value: 980, color: Colors.blue),
+                    GraphBarSection(value: -210, color: Colors.amber),
+                    GraphBarSection(value: -720, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 9),
+                  sections: [
+                    GraphBarSection(value: 300, color: Colors.pink),
+                    GraphBarSection(value: 200, color: Colors.blue),
+                    GraphBarSection(value: -200, color: Colors.amber),
+                    GraphBarSection(value: -400, color: Colors.purple),
+                  ],
+                ),
+                GraphBar(
+                  month: DateTime(2020, 10),
+                  sections: [
+                    GraphBarSection(value: 200, color: Colors.pink),
+                    GraphBarSection(value: 900, color: Colors.blue),
+                    GraphBarSection(value: -200, color: Colors.amber),
+                    GraphBarSection(value: -700, color: Colors.purple),
+                  ],
+                ),
+              ],
+            ),
+            onBarTapped: (GraphBar bar) {
+              print(bar.month);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+

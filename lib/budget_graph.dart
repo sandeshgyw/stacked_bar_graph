@@ -70,7 +70,9 @@ class BudgetGraph extends StatelessWidget {
       maxWidth: paddedBarWidth,
     );
 
-    return label.length == 7 ? textPainter.width + 5 : textPainter.width;
+    return (label.length == 7 || label.length == 5)
+        ? textPainter.width + 10
+        : textPainter.width;
   }
 
   @override
