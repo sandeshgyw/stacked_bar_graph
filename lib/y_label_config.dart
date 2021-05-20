@@ -8,10 +8,10 @@ class YLabelConfiguration {
   final double interval;
 
   ///Add styling to the Y-axis labels
-  final TextStyle labelStyle;
+  final TextStyle? labelStyle;
 
   ///This parameter maps the values as Y-Axis labels
-  final String Function(num) labelMapper;
+  final String Function(num)? labelMapper;
 
   YLabelConfiguration({
     this.labelCount = 5,

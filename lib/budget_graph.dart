@@ -1,9 +1,9 @@
 part of stacked_bar_chart;
 
 class Graph extends StatelessWidget {
-  const Graph({
-    Key key,
-    @required this.data,
+  const Graph(
+    this.data, {
+    Key? key,
     this.xLabelConfiguration,
     this.yLabelConfiguration,
     this.graphType,
@@ -15,10 +15,10 @@ class Graph extends StatelessWidget {
   }) : super(key: key);
 
   ///To configure the values in X-axis(labels).
-  final XLabelConfiguration xLabelConfiguration;
+  final XLabelConfiguration? xLabelConfiguration;
 
   ///Provides callback whenever the bar plotted is tapped
-  final Function(GraphBar) onBarTapped;
+  final Function(GraphBar)? onBarTapped;
 
   ///Provides data to be plotted.
   final GraphData data;
@@ -26,10 +26,10 @@ class Graph extends StatelessWidget {
   ///Style th labels in X-axis.
   // final TextStyle xLabelStyle;
 
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
 
   ///To control the plotting of NetLine
-  final NetLine netLine;
+  final NetLine? netLine;
 
   ///Height of the the canvas where the graph is plotted
   final double height;
@@ -38,10 +38,10 @@ class Graph extends StatelessWidget {
   final double barWidth;
 
   ///Type of Graph to be plotted.
-  final GraphType graphType;
+  final GraphType? graphType;
 
   ///To configure the values in Y-axis(labels).
-  final YLabelConfiguration yLabelConfiguration;
+  final YLabelConfiguration? yLabelConfiguration;
 
   double get paddedBarWidth => barWidth * paddingFactor;
   // Adding some padding on left and right of the bar
@@ -59,7 +59,7 @@ class Graph extends StatelessWidget {
       text: label,
       style: yLabelConfiguration?.labelStyle?.color == null
           ? TextStyle(color: Colors.grey)
-          : yLabelConfiguration.labelStyle,
+          : yLabelConfiguration?.labelStyle,
     );
     final textPainter = TextPainter(
       text: textSpan,
@@ -99,9 +99,8 @@ class Graph extends StatelessWidget {
                         ((detail.localPosition.dx) / (paddedBarWidth)).floor();
                     DateTime selectedMonth = data.months[index];
 
-                    GraphBar selectedBar = data.bars.firstWhere(
+                    GraphBar? selectedBar = data.bars.firstWhereOrNull(
                       (b) => b.month.compareTo(selectedMonth) == 0,
-                      orElse: () => null,
                     );
                     if (selectedBar != null) onBarTapped?.call(selectedBar);
                   },
@@ -109,10 +108,10 @@ class Graph extends StatelessWidget {
                     size: Size(((data.months.length) * paddedBarWidth), height),
                     painter: _GraphPainter(
                       data,
+                      paddedBarWidth,
                       xLabelConfiguration: xLabelConfiguration,
                       netLine: netLine,
                       barWidth: barWidth,
-                      paddedBarWidth: paddedBarWidth,
                       graphType: graphType,
                     ),
                   ),

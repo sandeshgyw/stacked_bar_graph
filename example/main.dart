@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class StackedBarGraph extends StatefulWidget {
-  StackedBarGraph({Key key}) : super(key: key);
+  StackedBarGraph({Key? key}) : super(key: key);
 
   @override
   _StackedBarGraphState createState() => _StackedBarGraphState();
@@ -59,6 +59,121 @@ class _StackedBarGraphState extends State<StackedBarGraph> {
             height: 50,
           ),
           Graph(
+            GraphData(
+              "ThePension",
+              [
+                GraphBar(
+                  DateTime(2020, 01),
+                  [
+                    GraphBarSection(100, color: colors[randomNumber]),
+                    GraphBarSection(900, color: colors[randomNumber + 1]),
+                    GraphBarSection(0, color: colors[randomNumber + 2]),
+                    GraphBarSection(0, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 2),
+                  [
+                    GraphBarSection(50, color: colors[randomNumber]), //second
+                    GraphBarSection(501,
+                        color: colors[randomNumber + 1]), //first
+                    GraphBarSection(-100, color: colors[randomNumber + 2]),
+                    GraphBarSection(-700, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 3),
+                  [
+                    GraphBarSection(150, color: colors[randomNumber]),
+                    GraphBarSection(800.22, color: colors[randomNumber + 1]),
+                    GraphBarSection(-150, color: colors[randomNumber + 2]),
+                    GraphBarSection(-550, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 4),
+                  [
+                    GraphBarSection(750, color: colors[randomNumber]),
+                    GraphBarSection(45, color: colors[randomNumber + 1]),
+                    GraphBarSection(-50, color: colors[randomNumber + 2]),
+                    GraphBarSection(-570, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 5),
+                  [
+                    GraphBarSection(200, color: colors[randomNumber]),
+                    GraphBarSection(670, color: colors[randomNumber + 1]),
+                    GraphBarSection(-400, color: colors[randomNumber + 2]),
+                    GraphBarSection(-50, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 6),
+                  [
+                    GraphBarSection(200, color: colors[randomNumber]),
+                    GraphBarSection(307, color: colors[randomNumber + 1]),
+                    GraphBarSection(-309, color: colors[randomNumber + 2]),
+                    GraphBarSection(-90, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 7),
+                  [
+                    GraphBarSection(200, color: colors[randomNumber]),
+                    GraphBarSection(350, color: colors[randomNumber + 1]),
+                    GraphBarSection(-170, color: colors[randomNumber + 2]),
+                    GraphBarSection(-500, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 8),
+                  [
+                    GraphBarSection(200, color: colors[randomNumber]),
+                    GraphBarSection(300, color: colors[randomNumber + 1]),
+                    GraphBarSection(-300, color: colors[randomNumber + 2]),
+                    GraphBarSection(-500, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 9),
+                  [
+                    GraphBarSection(200, color: colors[randomNumber]),
+                    GraphBarSection(390, color: colors[randomNumber + 1]),
+                    GraphBarSection(-1000, color: colors[randomNumber + 2]),
+                    GraphBarSection(-0, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 10),
+                  [
+                    GraphBarSection(60, color: colors[randomNumber]),
+                    GraphBarSection(700, color: colors[randomNumber + 1]),
+                    GraphBarSection(-100, color: colors[randomNumber + 2]),
+                    GraphBarSection(-500, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 11),
+                  [
+                    GraphBarSection(200, color: colors[randomNumber]),
+                    GraphBarSection(470, color: colors[randomNumber + 1]),
+                    GraphBarSection(-700, color: colors[randomNumber + 2]),
+                    GraphBarSection(-320, color: colors[randomNumber + 3]),
+                  ],
+                ),
+                GraphBar(
+                  DateTime(2020, 12),
+                  [
+                    GraphBarSection(500, color: colors[randomNumber]),
+                    GraphBarSection(500.0, color: colors[randomNumber + 1]),
+                    GraphBarSection(-500.0, color: colors[randomNumber + 2]),
+                    GraphBarSection(-500.0, color: colors[randomNumber + 3]),
+                  ],
+                ),
+              ],
+              Colors.white,
+            ),
             yLabelConfiguration: YLabelConfiguration(
               labelStyle: TextStyle(
                 color: Colors.grey,
@@ -88,153 +203,6 @@ class _StackedBarGraphState extends State<StackedBarGraph> {
               coreColor: Colors.white,
             ),
             graphType: GraphType.StackedRounded,
-            data: GraphData(
-              backgroundColor: Colors.white,
-              name: "ThePension",
-              bars: [
-                GraphBar(
-                  month: DateTime(2020, 01),
-                  sections: [
-                    GraphBarSection(value: 100, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 900, color: colors[randomNumber + 1]),
-                    GraphBarSection(value: 0, color: colors[randomNumber + 2]),
-                    GraphBarSection(value: 0, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 2),
-                  sections: [
-                    GraphBarSection(
-                        value: 50, color: colors[randomNumber]), //second
-                    GraphBarSection(
-                        value: 501, color: colors[randomNumber + 1]), //first
-                    GraphBarSection(
-                        value: -100, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -700, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 3),
-                  sections: [
-                    GraphBarSection(value: 150, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 800.22, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -150, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -550, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 4),
-                  sections: [
-                    GraphBarSection(value: 750, color: colors[randomNumber]),
-                    GraphBarSection(value: 45, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -50, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -570, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 5),
-                  sections: [
-                    GraphBarSection(value: 200, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 670, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -400, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -50, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 6),
-                  sections: [
-                    GraphBarSection(value: 200, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 307, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -309, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -90, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 7),
-                  sections: [
-                    GraphBarSection(value: 200, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 350, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -170, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -500, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 8),
-                  sections: [
-                    GraphBarSection(value: 200, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 300, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -300, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -500, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 9),
-                  sections: [
-                    GraphBarSection(value: 200, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 390, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -1000, color: colors[randomNumber + 2]),
-                    GraphBarSection(value: -0, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 10),
-                  sections: [
-                    GraphBarSection(value: 60, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 700, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -100, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -500, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 11),
-                  sections: [
-                    GraphBarSection(value: 200, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 470, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -700, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -320, color: colors[randomNumber + 3]),
-                  ],
-                ),
-                GraphBar(
-                  month: DateTime(2020, 12),
-                  sections: [
-                    GraphBarSection(value: 500, color: colors[randomNumber]),
-                    GraphBarSection(
-                        value: 500.0, color: colors[randomNumber + 1]),
-                    GraphBarSection(
-                        value: -500.0, color: colors[randomNumber + 2]),
-                    GraphBarSection(
-                        value: -500.0, color: colors[randomNumber + 3]),
-                  ],
-                ),
-              ],
-            ),
             onBarTapped: (GraphBar bar) {
               print(bar.month);
               setState(() {});

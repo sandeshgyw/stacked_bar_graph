@@ -77,11 +77,11 @@ class GraphData {
     return len / len - 1;
   }
 
-  GraphData({
-    @required this.name,
-    @required this.bars,
-    @required this.backgroundColor,
-  });
+  GraphData(
+    this.name,
+    this.bars,
+    this.backgroundColor,
+  );
 
   toMap() {
     return {
@@ -93,9 +93,9 @@ class GraphData {
 
   static GraphData fromMap(Map<String, dynamic> data) {
     return GraphData(
-      backgroundColor: Color(data["backgroundColor"]),
-      name: data["name"],
-      bars: data["bars"].map<GraphBar>((e) => GraphBar.fromMap(e)).toList(),
+      data["name"],
+      data["bars"].map<GraphBar>((e) => GraphBar.fromMap(e)).toList(),
+      Color(data["backgroundColor"]),
     );
   }
 }
@@ -103,7 +103,7 @@ class GraphData {
 class GraphBar {
   DateTime month;
   List<GraphBarSection> sections;
-  GraphBar({this.month, this.sections}) : assert(sections.length > 0);
+  GraphBar(this.month, this.sections) : assert(sections.length > 0);
 
   double get average {
     return sections
@@ -140,8 +140,8 @@ class GraphBar {
 
   static GraphBar fromMap(Map<String, dynamic> data) {
     return GraphBar(
-        month: DateTime.parse(data["month"]),
-        sections: data["sections"]
+        DateTime.parse(data["month"]),
+        data["sections"]
             .map<GraphBarSection>((e) => GraphBarSection.fromMap(e))
             .toList());
   }
@@ -151,8 +151,8 @@ class GraphBarSection {
   final double value;
   final Color color;
 
-  GraphBarSection({
-    @required this.value,
+  GraphBarSection(
+    this.value, {
     this.color = Colors.red,
   });
   toMap() {
@@ -164,7 +164,7 @@ class GraphBarSection {
 
   static GraphBarSection fromMap(Map<String, dynamic> data) {
     return GraphBarSection(
-      value: data["value"].toDouble(),
+      data["value"].toDouble(),
       color: Color(data["color"]),
     );
   }

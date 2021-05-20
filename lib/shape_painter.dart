@@ -2,21 +2,21 @@ part of stacked_bar_chart;
 
 class _GraphPainter extends CustomPainter {
   GraphData data;
-  final XLabelConfiguration xLabelConfiguration;
-  NetLine netLine;
-  GraphType graphType;
+  final XLabelConfiguration? xLabelConfiguration;
+  NetLine? netLine;
+  GraphType? graphType;
   _GraphPainter(
-    this.data, {
+    this.data,
+    this.paddedBarWidth, {
     this.barWidth = 50,
-    this.paddedBarWidth,
     this.xLabelConfiguration,
     this.netLine,
     this.graphType = GraphType.StackedRect,
   });
-  Point startPoint = Point();
+  Point startPoint = Point(0, 0);
   double sectionRange = 250; //y axis ka labels difference
   double barWidth;
-  double paddedBarWidth;
+  late double paddedBarWidth;
   double tickHeight = 3;
   double netPointRadius = 6;
   double netPointThickness = 2;
@@ -39,7 +39,7 @@ class _GraphPainter extends CustomPainter {
 
   double previousStart = 0;
 
-  Point endPoint = Point();
+  Point endPoint = Point(0, 0);
 
   double get adjustedHigh {
     return (data.cumulativeHigh / section)
@@ -71,7 +71,7 @@ class _GraphPainter extends CustomPainter {
     return size.height - graphPlotOffset / 2;
   }
 
-  Size size;
+  late Size size;
   @override
   void paint(Canvas canvas, Size size) {
     this.size = size;
@@ -82,9 +82,8 @@ class _GraphPainter extends CustomPainter {
     );
 
     data.months.forEach((m) {
-      GraphBar barData = data.bars.firstWhere(
+      GraphBar? barData = data.bars.firstWhereOrNull(
         (e) => e.month.compareTo(m) == 0,
-        orElse: () => null,
       );
       if (barData != null) {
         if (graphType != GraphType.LineGraph) _plotBar(canvas, barData);

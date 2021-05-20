@@ -7,17 +7,17 @@ class _AxisPainter extends CustomPainter {
     this.yLabelConfiguration,
   });
 
-  final YLabelConfiguration yLabelConfiguration;
+  final YLabelConfiguration? yLabelConfiguration;
 
-  Point startPoint = Point();
-  Point endPoint = Point();
+  Point startPoint = Point(0, 0);
+  Point endPoint = Point(0, 0);
 
   double get fontFactor => 0.8;
   double graphPlotOffset =
       100.0; //must be above 100 this gives the space for the net point plot on top of the bar
 
   int get labelCount {
-    if (yLabelConfiguration.labelCount == 2) return 3;
+    if (yLabelConfiguration?.labelCount == 2) return 3;
     return yLabelConfiguration?.labelCount ?? 3;
   }
 
@@ -76,7 +76,7 @@ class _AxisPainter extends CustomPainter {
     return size.height - graphPlotOffset / 2;
   }
 
-  Size size;
+  late Size size;
   @override
   void paint(Canvas canvas, Size size) {
     this.size = size;
@@ -97,7 +97,7 @@ class _AxisPainter extends CustomPainter {
                 color: Colors.grey,
                 fontSize: 11,
               )
-            : yLabelConfiguration.labelStyle,
+            : yLabelConfiguration?.labelStyle,
       );
       TextPainter textPainter = TextPainter(
         text: textSpan,
@@ -126,7 +126,7 @@ class _AxisPainter extends CustomPainter {
                 color: Colors.grey,
                 fontSize: 11,
               )
-            : yLabelConfiguration.labelStyle,
+            : yLabelConfiguration?.labelStyle,
       );
       final textPainter = TextPainter(
         text: textSpan,

@@ -1,5 +1,6 @@
 library stacked_bar_chart;
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
