@@ -1,3 +1,13 @@
+## [1.0.8]-2021/05/20
+- minor changes
+
+## [1.0.7+6]-2021/05/20
+- Migrated to null safety
+
+## [1.0.7+5]- 2021/05/9
+- xLabelStyle and xLabelMapper changed to labelStyle and labelMapper
+- yLabelStyle and yLabelMapper changed to labelStyle and labelMapper
+
 ## [1.0.7+4]- 2021/05/5
 - minor bug fixes
 

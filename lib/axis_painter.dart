@@ -91,14 +91,13 @@ class _AxisPainter extends CustomPainter {
   _plotPositiveLabels(Canvas canvas) {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       TextSpan textSpan = TextSpan(
-        text:
-            yLabelConfiguration?.yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
-        style: yLabelConfiguration?.yLabelStyle?.color == null
+        text: yLabelConfiguration?.labelMapper?.call(i) ?? i.toStringAsFixed(2),
+        style: yLabelConfiguration?.labelStyle?.color == null
             ? TextStyle(
                 color: Colors.grey,
                 fontSize: 11,
               )
-            : yLabelConfiguration.yLabelStyle,
+            : yLabelConfiguration.labelStyle,
       );
       TextPainter textPainter = TextPainter(
         text: textSpan,
@@ -121,14 +120,13 @@ class _AxisPainter extends CustomPainter {
   _plotNegativeLabels(Canvas canvas) {
     for (int i = 0; i < maxLableRange + section; i = i + section.ceil()) {
       final textSpan = TextSpan(
-        text:
-            yLabelConfiguration?.yLabelMapper?.call(i) ?? i.toStringAsFixed(2),
-        style: yLabelConfiguration?.yLabelStyle?.color == null
+        text: yLabelConfiguration?.labelMapper?.call(i) ?? i.toStringAsFixed(2),
+        style: yLabelConfiguration?.labelStyle?.color == null
             ? TextStyle(
                 color: Colors.grey,
                 fontSize: 11,
               )
-            : yLabelConfiguration.yLabelStyle,
+            : yLabelConfiguration.labelStyle,
       );
       final textPainter = TextPainter(
         text: textSpan,

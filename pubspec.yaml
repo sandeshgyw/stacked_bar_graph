@@ -1,6 +1,6 @@
 name: stacked_bar_chart
 description: A flutter library to draw graphs that can be scrolled as well as customized per the developers need.
-version: 1.0.7+4
+version: 1.0.8
 author: Sandesh Gyawali <sandeshgyanwali@gmail.com>
 homepage: https://github.com/sandeshgyw/stacked_bar_graph
 
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl:
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

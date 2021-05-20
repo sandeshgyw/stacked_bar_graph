@@ -106,7 +106,7 @@ class _GraphPainter extends CustomPainter {
       _plotXAxisLabels(
         canvas,
         size,
-        xLabelConfiguration?.xLabelMapper?.call(m) ??
+        xLabelConfiguration?.labelMapper?.call(m) ??
             DateFormat("MMM").format(m),
       );
       canvas.translate(paddedBarWidth, 0);
@@ -116,12 +116,12 @@ class _GraphPainter extends CustomPainter {
   _plotXAxisLabels(Canvas canvas, Size size, String month) {
     final textSpan = TextSpan(
       text: month,
-      style: xLabelConfiguration?.xLabelStyle?.color == null
+      style: xLabelConfiguration?.labelStyle?.color == null
           ? TextStyle(
               color: Colors.grey,
               fontSize: 11,
             )
-          : xLabelConfiguration?.xLabelStyle,
+          : xLabelConfiguration?.labelStyle,
     );
     final textPainter = TextPainter(
         text: textSpan,

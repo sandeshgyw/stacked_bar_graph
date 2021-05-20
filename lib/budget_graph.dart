@@ -52,14 +52,14 @@ class Graph extends StatelessWidget {
         ? data.cumulativeHigh
         : -data.cumulativeLow;
 
-    String label = yLabelConfiguration?.yLabelMapper?.call(high) ??
-        high.toStringAsFixed(2);
+    String label =
+        yLabelConfiguration?.labelMapper?.call(high) ?? high.toStringAsFixed(2);
 
     final textSpan = TextSpan(
       text: label,
-      style: yLabelConfiguration?.yLabelStyle?.color == null
+      style: yLabelConfiguration?.labelStyle?.color == null
           ? TextStyle(color: Colors.grey)
-          : yLabelConfiguration.yLabelStyle,
+          : yLabelConfiguration.labelStyle,
     );
     final textPainter = TextPainter(
       text: textSpan,

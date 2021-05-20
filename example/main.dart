@@ -60,24 +60,24 @@ class _StackedBarGraphState extends State<StackedBarGraph> {
           ),
           Graph(
             yLabelConfiguration: YLabelConfiguration(
-              yLabelStyle: TextStyle(
+              labelStyle: TextStyle(
                 color: Colors.grey,
                 fontSize: 11,
               ),
               interval: 500,
               labelCount: 5,
-              yLabelMapper: (num value) {
+              labelMapper: (num value) {
                 return NumberFormat.compactCurrency(
                         locale: "en", decimalDigits: 0, symbol: "\$")
                     .format(value);
               },
             ),
             xLabelConfiguration: XLabelConfiguration(
-              xLabelStyle: TextStyle(
+              labelStyle: TextStyle(
                 color: Colors.grey,
                 fontSize: 11,
               ),
-              xLabelMapper: (DateTime date) {
+              labelMapper: (DateTime date) {
                 return DateFormat("MMM yyyy").format(date);
               },
             ),
